@@ -40,7 +40,7 @@ function Profile() {
     axios.get(`http://localhost:4000/fury/users/${userId}`).then((res) => {
       setName(res.data.name);
       setEmail(res.data.email);
-      setPhoneNo(res.data.phone_number);
+      setPhoneNo(str1.concat(res.data.phone_number));
       setAddressNo(res.data.address.address_No);
       setLane(res.data.address.lane);
       setCity(res.data.address.city);

@@ -18,7 +18,7 @@ function ItemView() {
   const { product, productIsLoading } = useSelector((state) => state.products);
   const [qty, setQty] = useState(1);
   const { shoppingCart } = useSelector((state) => state.cart);
-  const cloneshoppingcart = [...shoppingCart];
+  
   // GET SPECIFIC PRODUCT
   useEffect(() => {
     dispatch(getProduct(itemId));
@@ -36,7 +36,9 @@ function ItemView() {
     dispatch(addPrice(sum));
   };
 
-  const addToCart =  () => {
+  const addToCart = () => {
+    
+    var cloneshoppingcart = JSON.parse(JSON.stringify(shoppingCart));
     const newProduct = {
       item_id: product._id,
       item_name: product.name,
@@ -46,19 +48,23 @@ function ItemView() {
       img_url: product.imgUrl
     };
 
-    Object.keys(cloneshoppingcart).map(function(key, index) {
-      if (cloneshoppingcart[key].item_id === newProduct.item_id)
-      {
-        newProduct.qty = newProduct.qty + cloneshoppingcart[key].qty;
-        cloneshoppingcart.pop(cloneshoppingcart[key]);
+    var item = cloneshoppingcart.find(
 
-      }
+      (item) => item.item_id === newProduct.item_id
+      
+    );
     
-    });
-    
-    cloneshoppingcart.push(newProduct);
+    if (item)
+    {
+      item.qty = item.qty + newProduct.qty;
+      item.amount = item.amount + newProduct.amount;
+    }
+    else
+    {
+      cloneshoppingcart.push(newProduct);
+    } 
+   
     dispatch(setCart(cloneshoppingcart));
-
   }
 
   // DECREASE QUANTITY
