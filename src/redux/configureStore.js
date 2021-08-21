@@ -6,10 +6,12 @@ import {
 
 import userSlice from "./userSlice";
 import productsSlice from "./productsSlice";
+import cartSlice from "./cartSlice";
 
 const reducer = combineReducers({
-  user: userSlice,
+  userX: userSlice,
   products: productsSlice,
+  cart:cartSlice
 });
 
 const store = configureStore({

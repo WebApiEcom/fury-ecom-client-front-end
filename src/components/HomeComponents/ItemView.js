@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { setCart } from "../../redux/cartSlice";
 import {
   getProduct,
   addPrice,
   substractPrice,
 } from "../../redux/productsSlice";
+import { setAutoFreeze } from "@reduxjs/toolkit/node_modules/immer";
 
 function ItemView() {
   // VARIABLES
@@ -15,10 +17,12 @@ function ItemView() {
   const dispatch = useDispatch();
   const { product, productIsLoading } = useSelector((state) => state.products);
   const [qty, setQty] = useState(1);
-
+  const { shoppingCart } = useSelector((state) => state.cart);
+  
   // GET SPECIFIC PRODUCT
   useEffect(() => {
     dispatch(getProduct(itemId));
+    console.log(product);
   }, []);
 
   // INCREASE QUANTITY
@@ -27,10 +31,41 @@ function ItemView() {
     const amount =
       (product && product.prices ? product.prices.price : null) -
       ((product && product.prices ? product.prices.discount : null) / 100) *
-        (product && product.prices ? product.prices.price : null);
+      (product && product.prices ? product.prices.price : null);
     const sum = amount + product.discountedPrice;
     dispatch(addPrice(sum));
   };
+
+  const addToCart = () => {
+    
+    var cloneshoppingcart = JSON.parse(JSON.stringify(shoppingCart));
+    const newProduct = {
+      item_id: product._id,
+      item_name: product.name,
+      qty: qty,
+      price: parseInt(product.prices.price - (product.prices.price * (product.prices.discount / 100))),
+      amount: product.discountedPrice,
+      img_url: product.imgUrl
+    };
+
+    var item = cloneshoppingcart.find(
+
+      (item) => item.item_id === newProduct.item_id
+      
+    );
+    
+    if (item)
+    {
+      item.qty = item.qty + newProduct.qty;
+      item.amount = item.amount + newProduct.amount;
+    }
+    else
+    {
+      cloneshoppingcart.push(newProduct);
+    } 
+   
+    dispatch(setCart(cloneshoppingcart));
+  }
 
   // DECREASE QUANTITY
   const onSubstract = () => {
@@ -40,7 +75,7 @@ function ItemView() {
       const amount =
         (product && product.prices ? product.prices.price : null) -
         ((product && product.prices ? product.prices.discount : null) / 100) *
-          (product && product.prices ? product.prices.price : null);
+        (product && product.prices ? product.prices.price : null);
       const sub = product.discountedPrice - amount;
       dispatch(substractPrice(sub));
     }
@@ -48,9 +83,8 @@ function ItemView() {
 
   return (
     <div
-      class={`container mx-auto  ${
-        productIsLoading ? "animate-pulse bg-white-400" : ""
-      }`}
+      class={`container mx-auto  ${productIsLoading ? "animate-pulse bg-white-400" : ""
+        }`}
     >
       <div class="card lg:card-side bordered mt-8">
         <figure
@@ -113,7 +147,7 @@ function ItemView() {
             </div>
 
             <div class="mt-7">
-              <button class="btn btn-wide">ADD TO CART</button>
+              <button class="btn btn-wide" onClick={addToCart}>ADD TO CART</button>
             </div>
           </div>
         </div>
