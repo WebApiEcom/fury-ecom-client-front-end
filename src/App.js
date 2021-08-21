@@ -5,30 +5,44 @@ import Home from "./pages/Home";
 import ItemView from "./components/HomeComponents/ItemView";
 import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
+import Protfolio from "./pages/Protfolio";
+import Contact from "./pages/Contact";
+import SignUp from "./pages/SignUp";
 
 function App() {
-  return (
-    <div>
-      <Router>
-        <Switch>
-          <Route path="/Item-view/:itemId">
-            <Header />
-            <ItemView />
-          </Route>
-          <Route path="/cart">
-            <Cart />
-          </Route>
-          <Route path="/profile/:userId">
-            <Profile />
-          </Route>
-          <Route path="/">
-            <Header />
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
-  );
+   return (
+      <div>
+         <Router>
+            <Switch>
+               <Route path="/signup">
+                  <SignUp />
+               </Route>
+               <Route path="/protfolio">
+                  <Header />
+                  <Protfolio />
+               </Route>
+               <Route path="/contact">
+                  <Header />
+                  <Contact />
+               </Route>
+               <Route path="/Item-view/:itemId">
+                  <Header />
+                  <ItemView />
+               </Route>
+               <Route path="/cart">
+                  <Cart />
+               </Route>
+               <Route path="/profile/:userId">
+                  <Profile />
+               </Route>
+               <Route path="/">
+                  <Header />
+                  <Home />
+               </Route>
+            </Switch>
+         </Router>
+      </div>
+   );
 }
 
 export default App;
