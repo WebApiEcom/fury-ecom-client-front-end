@@ -18,7 +18,7 @@ function ItemView() {
    const { product, productIsLoading } = useSelector((state) => state.products);
    const [qty, setQty] = useState(1);
    const { shoppingCart, orderTotal } = useSelector((state) => state.cart);
-   // GET SPECIFIC PRODUCT
+
    useEffect(() => {
       dispatch(getProduct(itemId));
       console.log(product);
@@ -37,7 +37,6 @@ function ItemView() {
 
    const addToCart = () => {
       var cloneshoppingcart = JSON.parse(JSON.stringify(shoppingCart));
-
       const newProduct = {
          item_id: product._id,
          item_name: product.name,
@@ -49,12 +48,20 @@ function ItemView() {
          amount: product.discountedPrice,
          img_url: product.imgUrl,
       };
-
+      var itemPrice = newProduct.price * qty;
       var cloneTotal = parseFloat(orderTotal);
 
-      var itemPrice = newProduct.price * qty;
+      var item = cloneshoppingcart.find(
+         (item) => item.item_id === newProduct.item_id
+      );
 
-      // cloneshoppingcart.push(newProduct);
+      if (item) {
+         item.qty = item.qty + newProduct.qty;
+         item.amount = item.amount + newProduct.amount;
+      } else {
+         cloneshoppingcart.push(newProduct);
+      }
+
       dispatch(setCart(cloneshoppingcart));
       dispatch(setCartTotal(cloneTotal + itemPrice));
    };

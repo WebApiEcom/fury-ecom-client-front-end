@@ -8,6 +8,7 @@ function Cart() {
    const dispatch = useDispatch();
    const [cratItem, setCartIyem] = useState([]);
 
+   // ReMOVE ITEM FUNCTION
    const onPressRemove = (singleItem) => {
       var cloneProducts = [...shoppingCart];
       shoppingCart.filter((item, index) => {

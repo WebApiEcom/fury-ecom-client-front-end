@@ -59,19 +59,34 @@ function Profile() {
             address: { address_No: addressNo, lane: lane, city: city },
             userType: userType,
          })
-         .then(
-            (res) => {
-               setMessage(res.data.message);
-               setColorGreen(true);
-               setVisible(true);
-            },
-            (error) => {
-               setMessage(error.response.data);
-               setColorGreen(false);
-               setVisible(true);
-            }
-         );
+         .then((res) => {
+            setMessage(res.data.message);
+            setColorGreen(true);
+            setVisible(false);
+
+            axios
+               .put(`http://localhost:4000/fury/users/${userId}`, {
+                  name: name,
+                  email: email,
+                  phone_number: phoneNo,
+                  address: { address_No: addressNo, lane: lane, city: city },
+                  userType: userType,
+               })
+               .then(
+                  (res) => {
+                     setMessage(res.data.message);
+                     setColorGreen(true);
+                     setVisible(true);
+                  },
+                  (error) => {
+                     setMessage(error.response.data);
+                     setColorGreen(false);
+                     setVisible(true);
+                  }
+               );
+         });
    };
+
    return (
       <div className="md:grid md:grid-cols-2 md:gap-6">
          <div className="shadow overflow-hidden sm:rounded-md">
