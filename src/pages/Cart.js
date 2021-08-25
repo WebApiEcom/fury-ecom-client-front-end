@@ -136,9 +136,15 @@ function Cart() {
                      <span>Total cost</span>
                      <span>Rs. {orderTotal}</span>
                   </div>
-                  <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
-                     Checkout
-                  </button>
+                  {shoppingCart.length == 0 ? (
+                     <button class="bg-yellow-500 font-semibold py-3 text-sm text-white uppercase w-full disabled:opacity-50">
+                        Please Add Item to Cart
+                     </button>
+                  ) : (
+                     <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+                        Checkout
+                     </button>
+                  )}
                </div>
             </div>
          </div>
