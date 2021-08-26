@@ -8,12 +8,19 @@ import Profile from "./pages/Profile";
 import Protfolio from "./pages/Protfolio";
 import Contact from "./pages/Contact";
 import SignUp from "./pages/SignUp";
-
+import SignIn from "./pages/SignIn";
+// import Payment from "./pages/Payment";
 function App() {
   return (
     <div>
       <Router>
         <Switch>
+          {/* <Route path="/payment">
+                  <Payment />
+               </Route> */}
+          <Route path="/signIn">
+            <SignIn />
+          </Route>
           <Route path="/signup">
             <SignUp />
           </Route>

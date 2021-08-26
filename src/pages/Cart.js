@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import CartItem from "../components/CartComponents/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { setCart, setCartTotal } from "../redux/cartSlice";
-
+import { useHistory } from "react-router";
 function Cart() {
    const { shoppingCart, orderTotal } = useSelector((state) => state.cart);
    const dispatch = useDispatch();
    const [cratItem, setCartIyem] = useState([]);
+   const history = useHistory();
 
    // ReMOVE ITEM FUNCTION
    const onPressRemove = (singleItem) => {
@@ -104,8 +105,8 @@ function Cart() {
                   ))
                )}
 
-               <a
-                  href="#"
+               <button
+                  onClick={() => history.push("/")}
                   className="flex font-semibold text-indigo-600 text-sm mt-10"
                >
                   <svg
@@ -115,7 +116,7 @@ function Cart() {
                      <path d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z" />
                   </svg>
                   Continue Shopping
-               </a>
+               </button>
             </div>
 
             <div id="summary" className="w-1/4 px-8 py-10">
@@ -135,9 +136,15 @@ function Cart() {
                      <span>Total cost</span>
                      <span>Rs. {orderTotal}</span>
                   </div>
-                  <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
-                     Checkout
-                  </button>
+                  {shoppingCart.length == 0 ? (
+                     <button class="bg-yellow-500 font-semibold py-3 text-sm text-white uppercase w-full disabled:opacity-50">
+                        Please Add Item to Cart
+                     </button>
+                  ) : (
+                     <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+                        Checkout
+                     </button>
+                  )}
                </div>
             </div>
          </div>
