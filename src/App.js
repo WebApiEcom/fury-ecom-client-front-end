@@ -11,45 +11,45 @@ import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 // import Payment from "./pages/Payment";
 function App() {
-   return (
-      <div>
-         <Router>
-            <Switch>
-               {/* <Route path="/payment">
+  return (
+    <div>
+      <Router>
+        <Switch>
+          {/* <Route path="/payment">
                   <Payment />
                </Route> */}
-               <Route path="/signIn">
-                  <SignIn />
-               </Route>
-               <Route path="/signup">
-                  <SignUp />
-               </Route>
-               <Route path="/protfolio">
-                  <Header />
-                  <Protfolio />
-               </Route>
-               <Route path="/contact">
-                  <Header />
-                  <Contact />
-               </Route>
-               <Route path="/Item-view/:itemId">
-                  <Header />
-                  <ItemView />
-               </Route>
-               <Route path="/cart">
-                  <Cart />
-               </Route>
-               <Route path="/profile/:userId">
-                  <Profile />
-               </Route>
-               <Route path="/">
-                  <Header />
-                  <Home />
-               </Route>
-            </Switch>
-         </Router>
-      </div>
-   );
+          <Route path="/signIn">
+            <SignIn />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/protfolio">
+            <Header />
+            <Protfolio />
+          </Route>
+          <Route path="/contact">
+            <Header />
+            <Contact />
+          </Route>
+          <Route path="/Item-view/:itemId">
+            <Header />
+            <ItemView />
+          </Route>
+          <Route path="/cart">
+            <Cart />
+          </Route>
+          <Route path="/profile/:userId">
+            <Profile />
+          </Route>
+          <Route path="/">
+            <Header />
+            <Home />
+          </Route>
+        </Switch>
+      </Router>
+    </div>
+  );
 }
 
 export default App;
