@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCart, setCartTotal, setOrderStatus } from "../redux/cartSlice";
 import CheckoutItem from '../components/CheckoutComponents/CheckoutItem';
 import axios from "axios";
-import  { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 function Checkout() {
     const { shoppingCart, orderTotal } = useSelector((state) => state.cart);
@@ -17,27 +17,26 @@ function Checkout() {
     const dispatch = useDispatch();
     useEffect(() => {
         axios.get(`http://localhost:4000/fury/users/${email}`).then((res) => {
-           setName(res.data.name);
-           setPhoneNo(res.data.phone_number);
-           setAddressNo(res.data.address.address_No);
-           setLane(res.data.address.lane);
-           setCity(res.data.address.city);
+            setName(res.data.name);
+            setPhoneNo(res.data.phone_number);
+            setAddressNo(res.data.address.address_No);
+            setLane(res.data.address.lane);
+            setCity(res.data.address.city);
         });
-        
+
     }, []);
-    
+
     const placeOrder = () => {
-        axios.post('http://localhost:4000/orders/',{
+        axios.post('http://localhost:4000/orders/', {
             total: orderTotal,
             items: shoppingCart,
             payment_type: "Debit Card"
-        },{
+        }, {
             headers: {
                 'x-authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpzaHRtYWRAZ21haWwuY29tIiwiaWF0IjoxNjI5ODA0ODE4fQ.Xc7vLZ6giavNqROPjDhGucyl11O9E2HSSw4nUW6Sruk'
             }
         }).then((res) => {
-            if (res.status === 200)
-            {
+            if (res.status === 200) {
                 dispatch(setOrderStatus(true));
                 dispatch(setCart([]));
                 dispatch(setCartTotal(0));
@@ -46,7 +45,7 @@ function Checkout() {
         })
     }
 
-    
+
     return (
         <div>
             <div className="block">
@@ -116,8 +115,8 @@ function Checkout() {
                                         </div>
                                         <div className="pt-2.5 ">
                                             <button
-                                            onClick={()=>placeOrder()}    
-                                            className="mb-1.5 border-solid bg-purple-700 border-transparent rounded px-12 py-0 h-11 leading-cus text-base border text-white w-full font-medium">Place Order</button>
+                                                onClick={() => placeOrder()}
+                                                className="mb-1.5 border-solid bg-purple-700 border-transparent rounded px-12 py-0 h-11 leading-cus text-base border text-white w-full font-medium">Place Order</button>
                                         </div>
                                     </div>
 

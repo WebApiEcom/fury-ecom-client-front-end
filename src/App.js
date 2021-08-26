@@ -33,7 +33,7 @@ function App() {
                <Route path="/cart">
                   <Cart />
                </Route>
-               <Route path="/profile/:userId">
+               <Route path="/profile/:emailEncrypt">
                   <Profile />
                </Route>
                <Route path="/checkout">
