@@ -7,22 +7,20 @@ import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import Protfolio from "./pages/Protfolio";
 import Contact from "./pages/Contact";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
-// import Payment from "./pages/Payment";
+import CreateUser from "./pages/CreateUser";
+import Checkout from "./pages/Checkout";
 function App() {
   return (
     <div>
       <Router>
         <Switch>
-          {/* <Route path="/payment">
-                  <Payment />
-               </Route> */}
-          <Route path="/signIn">
-            <SignIn />
+          <Route path="/checkout">
+            <Header />
+            <Checkout />
           </Route>
-          <Route path="/signup">
-            <SignUp />
+          <Route path="/fetch-user-info">
+            <Header />
+            <CreateUser />
           </Route>
           <Route path="/protfolio">
             <Header />
