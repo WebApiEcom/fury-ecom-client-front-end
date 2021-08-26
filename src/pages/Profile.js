@@ -44,6 +44,7 @@ function Profile() {
          setCity(res.data.address.city);
          setUserType(res.data.userType);
       });
+    
    }, []);
 
    const updateUser = (userId) => {
