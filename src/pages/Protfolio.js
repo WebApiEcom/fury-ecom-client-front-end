@@ -27,7 +27,7 @@ function Protfolio() {
    }, []);
 
    return (
-      <div class="grid gap-x-8 gap-y-4 grid-cols-3">
+      <div className="grid gap-x-8 gap-y-4 grid-cols-3">
          {allInstaPosts.map((post) => (
             <div key={post.id}>
                <ProtfolioItem
