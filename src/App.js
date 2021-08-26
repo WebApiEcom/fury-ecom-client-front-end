@@ -8,13 +8,19 @@ import Profile from "./pages/Profile";
 import Protfolio from "./pages/Protfolio";
 import Contact from "./pages/Contact";
 import SignUp from "./pages/SignUp";
-import Checkout from "./pages/Checkout";
-
+import SignIn from "./pages/SignIn";
+// import Payment from "./pages/Payment";
 function App() {
    return (
       <div>
          <Router>
             <Switch>
+               {/* <Route path="/payment">
+                  <Payment />
+               </Route> */}
+               <Route path="/signIn">
+                  <SignIn />
+               </Route>
                <Route path="/signup">
                   <SignUp />
                </Route>
@@ -33,11 +39,8 @@ function App() {
                <Route path="/cart">
                   <Cart />
                </Route>
-               <Route path="/profile/:emailEncrypt">
+               <Route path="/profile/:userId">
                   <Profile />
-               </Route>
-               <Route path="/checkout">
-                  <Checkout />
                </Route>
                <Route path="/">
                   <Header />
