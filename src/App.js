@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import Protfolio from "./pages/Protfolio";
 import Contact from "./pages/Contact";
 import SignUp from "./pages/SignUp";
+import Checkout from "./pages/Checkout";
 
 function App() {
    return (
@@ -34,6 +35,9 @@ function App() {
                </Route>
                <Route path="/profile/:userId">
                   <Profile />
+               </Route>
+               <Route path="/checkout">
+                  <Checkout />
                </Route>
                <Route path="/">
                   <Header />

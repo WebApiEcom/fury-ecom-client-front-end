@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import CartItem from "../components/CartComponents/CartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { setCart, setCartTotal } from "../redux/cartSlice";
+import { Link } from "react-router-dom";
 
 function Cart() {
    const { shoppingCart, orderTotal } = useSelector((state) => state.cart);
@@ -135,9 +136,12 @@ function Cart() {
                      <span>Total cost</span>
                      <span>Rs. {orderTotal}</span>
                   </div>
-                  <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
-                     Checkout
-                  </button>
+                  <Link to="/checkout">
+                     <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+                        Checkout
+                     </button>
+                  </Link>
+
                </div>
             </div>
          </div>
