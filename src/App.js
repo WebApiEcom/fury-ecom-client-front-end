@@ -10,6 +10,7 @@ import Contact from "./pages/Contact";
 import CreateUser from "./pages/CreateUser";
 import Checkout from "./pages/Checkout";
 import Footer from "./components/Footer";
+import Payment from "./pages/Payment";
 function App() {
   return (
     <div>

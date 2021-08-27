@@ -18,7 +18,7 @@ function Item(props) {
           {props.item.name}
 
           {props.item.isActive ? (
-            <div class="badge mx-2 badge-secondary">NEW</div>
+            <div class="badge mx-2 badge-error">NEW</div>
           ) : null}
         </h2>
 
@@ -57,7 +57,7 @@ function Item(props) {
               </button>
             ) : (
               <Link to={`/item-view/${props.item._id}`}>
-                <button class="btn btn-secondary">
+                <button class="btn btn-warning">
                   <span className="mr-1">View</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

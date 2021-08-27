@@ -6,6 +6,7 @@ import SignUp from "./CreateUser";
 
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import Payment from "./Payment";
 
 function Checkout() {
   // LOCAL STATES
@@ -164,6 +165,8 @@ function Checkout() {
           </div>
         </div>
       </div>
+
+      {/* <Payment /> */}
     </div>
   );
 }

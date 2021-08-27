@@ -72,7 +72,7 @@ function Cart() {
       loginWithPopup();
     } else {
       await axios
-        .get(`http://localhost:4000/fury/users/${user ? user.name : null}`)
+        .get(`http://localhost:4000/fury/users/${user ? user.email : null}`)
         .then((res) => {
           if (res.data.isUser == false) {
             history.push("/fetch-user-info");
