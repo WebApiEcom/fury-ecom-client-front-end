@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "../components/CartComponents/CartItem";
 import { useDispatch, useSelector } from "react-redux";
+import { setUserToken } from "../redux/userSlice";
 import { setCart, setCartTotal } from "../redux/cartSlice";
-import { Link } from "react-router-dom";
-
 import { useHistory } from "react-router";
+import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
+
 function Cart() {
   const { shoppingCart, orderTotal } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [cratItem, setCartIyem] = useState([]);
   const history = useHistory();
+
+  const { loginWithPopup, user } = useAuth0();
 
   // ReMOVE ITEM FUNCTION
   const onPressRemove = (singleItem) => {
@@ -45,7 +49,8 @@ function Cart() {
       dispatch(setCart(cloneProducts));
     }
   };
-  const onPressPlus = (singleItem) => {
+
+  const onPressPlus = async (singleItem) => {
     // var cloneProducts = [...shoppingCart];
     var cloneProducts = JSON.parse(JSON.stringify(shoppingCart));
     console.log(" cloneProducts", cloneProducts);
@@ -60,6 +65,24 @@ function Cart() {
     cloneTotal = cloneTotal + parseFloat(item.price);
     dispatch(setCartTotal(cloneTotal));
     dispatch(setCart(cloneProducts));
+  };
+
+  const onPlaceOrder = async () => {
+    if (user == undefined) {
+      loginWithPopup();
+    } else {
+      await axios
+        .get(`http://localhost:4000/fury/users/${user ? user.email : null}`)
+        .then((res) => {
+          if (res.data.isUser == false) {
+            history.push("/fetch-user-info");
+          } else {
+            dispatch(setUserToken(res.data.token));
+            history.push("/checkout");
+          }
+        })
+        .catch((error) => {});
+    }
   };
 
   return (
@@ -132,18 +155,16 @@ function Cart() {
               <span>Total cost</span>
               <span>Rs. {orderTotal}</span>
             </div>
-            <Link to="/checkout">
-              <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
-                Checkout
-              </button>
-            </Link>
 
             {shoppingCart.length == 0 ? (
               <button class="bg-yellow-500 font-semibold py-3 text-sm text-white uppercase w-full disabled:opacity-50">
                 Please Add Item to Cart
               </button>
             ) : (
-              <button class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+              <button
+                class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+                onClick={onPlaceOrder}
+              >
                 Checkout
               </button>
             )}

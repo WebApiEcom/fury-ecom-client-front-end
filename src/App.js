@@ -7,22 +7,22 @@ import Cart from "./pages/Cart";
 import Profile from "./pages/Profile";
 import Protfolio from "./pages/Protfolio";
 import Contact from "./pages/Contact";
-import SignUp from "./pages/SignUp";
-import SignIn from "./pages/SignIn";
-// import Payment from "./pages/Payment";
+import CreateUser from "./pages/CreateUser";
+import Checkout from "./pages/Checkout";
+import Footer from "./components/Footer";
+import Payment from "./pages/Payment";
 function App() {
   return (
     <div>
       <Router>
         <Switch>
-          {/* <Route path="/payment">
-                  <Payment />
-               </Route> */}
-          <Route path="/signIn">
-            <SignIn />
+          <Route path="/checkout">
+            <Header />
+            <Checkout />
           </Route>
-          <Route path="/signup">
-            <SignUp />
+          <Route path="/fetch-user-info">
+            <Header />
+            <CreateUser />
           </Route>
           <Route path="/protfolio">
             <Header />
@@ -37,14 +37,17 @@ function App() {
             <ItemView />
           </Route>
           <Route path="/cart">
+            <Header />
             <Cart />
           </Route>
           <Route path="/profile/:userId">
+            <Header />
             <Profile />
           </Route>
           <Route path="/">
             <Header />
             <Home />
+            <Footer />
           </Route>
         </Switch>
       </Router>
