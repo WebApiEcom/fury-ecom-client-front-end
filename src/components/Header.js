@@ -1,11 +1,31 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import axios from "axios";
+import { setUserToken, setToCheckOut } from "../redux/userSlice";
+
 
 function Header() {
   const { shoppingCart } = useSelector((state) => state.cart);
   const { isAuthenticated, loginWithPopup, logout, user } = useAuth0();
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const profile = async() => {
+    await axios
+        .get(`http://localhost:4000/fury/users/${user ? user.email : null}`)
+        .then((res) => {
+          if (res.data.isUser === false) {
+            dispatch(setToCheckOut(false));
+            history.push("/fetch-user-info");
+          } else {
+            dispatch(setUserToken(res.data.token));
+            history.push(`/profile/${res.data.token}`);
+          }
+        })
+        .catch((error) => {});
+  }
 
   return (
     <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
@@ -34,7 +54,9 @@ function Header() {
           <div className="flex ">
             <div class="avatar online mr-10 -mt-1">
               <div class="rounded-full w-10 h-10">
-                <img src={user.picture} alt="user-image" />
+                <button
+                onClick={()=>profile()}
+                ><img src={user.picture} alt="" /></button>
               </div>
             </div>
 

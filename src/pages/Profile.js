@@ -41,7 +41,7 @@ function Profile() {
    };
 
    useEffect(() => {
-      axios.get(`http://localhost:4000/fury/users/${emailEncrypt}`).then((res) => {
+      axios.get(`http://localhost:4000/fury/users/verify/${emailEncrypt}`).then((res) => {
          set_id(res.data._id);
          setName(res.data.name);
          setEmail(res.data.email);
