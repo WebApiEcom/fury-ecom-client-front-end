@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 function Profile() {
-   const { userId } = useParams();
+   const { emailEncrypt } = useParams();
+   const [_id, set_id] = useState("");
    const [name, setName] = useState("");
    const [email, setEmail] = useState("");
    const [phoneNo, setPhoneNo] = useState("");
@@ -14,31 +15,37 @@ function Profile() {
    const [message, setMessage] = useState("");
    const [colorGreen, setColorGreen] = useState(true);
    const [visible, setVisible] = useState(false);
-   const str1 = "0";
+   const [disabled, setDisabled] = useState(true);
 
    const onChangeName = (e) => {
       setName(e.target.value);
+      setDisabled(false);
    };
    const onChangePhone = (e) => {
       setPhoneNo(e.target.value);
+      setDisabled(false);
    };
    const onChangeAddressNo = (e) => {
       setAddressNo(e.target.value);
+      setDisabled(false);
    };
 
    const onChangeLane = (e) => {
       setLane(e.target.value);
+      setDisabled(false);
    };
 
    const onChangeCity = (e) => {
       setCity(e.target.value);
+      setDisabled(false);
    };
 
    useEffect(() => {
-      axios.get(`http://localhost:4000/fury/users/${userId}`).then((res) => {
+      axios.get(`http://localhost:4000/fury/users/${emailEncrypt}`).then((res) => {
+         set_id(res.data._id);
          setName(res.data.name);
          setEmail(res.data.email);
-         setPhoneNo(str1.concat(res.data.phone_number));
+         setPhoneNo(res.data.phone_number);
          setAddressNo(res.data.address.address_No);
          setLane(res.data.address.lane);
          setCity(res.data.address.city);
@@ -55,37 +62,20 @@ function Profile() {
       axios
          .put(`http://localhost:4000/fury/users/${userId}`, {
             name: name,
-            email: email,
             phone_number: phoneNo,
-            address: { address_No: addressNo, lane: lane, city: city },
-            userType: userType,
+            address: { address_No: addressNo, lane: lane, city: city }
          })
          .then((res) => {
-            setMessage(res.data.message);
+            setMessage(res.data);
             setColorGreen(true);
-            setVisible(false);
-
-            axios
-               .put(`http://localhost:4000/fury/users/${userId}`, {
-                  name: name,
-                  email: email,
-                  phone_number: phoneNo,
-                  address: { address_No: addressNo, lane: lane, city: city },
-                  userType: userType,
-               })
-               .then(
-                  (res) => {
-                     setMessage(res.data.message);
-                     setColorGreen(true);
-                     setVisible(true);
-                  },
-                  (error) => {
-                     setMessage(error.response.data);
-                     setColorGreen(false);
-                     setVisible(true);
-                  }
-               );
-         });
+            setVisible(true);
+         },
+         (error) => {
+            setMessage(error.response.data);
+            setColorGreen(false);
+            setVisible(true);
+         }
+         );
    };
 
    return (
@@ -231,7 +221,8 @@ function Profile() {
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
                <button
                   class="btn btn-primary btn-active"
-                  onClick={() => updateUser(userId)}
+                  onClick={() => updateUser(_id)}
+                  disabled={disabled}
                >
                   Update
                </button>

@@ -58,7 +58,6 @@ function Checkout() {
         {
           headers: {
             "x-authToken": `${token}`,
-            // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpzaHRtYWRAZ21haWwuY29tIiwiaWF0IjoxNjI5ODA0ODE4fQ.Xc7vLZ6giavNqROPjDhGucyl11O9E2HSSw4nUW6Sruk",
           },
         }
       )
