@@ -6,9 +6,9 @@ import SignUp from "./CreateUser";
 
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { useAuth0 } from "@auth0/auth0-react";
 
 function Checkout() {
+  // LOCAL STATES
   const { shoppingCart, orderTotal } = useSelector((state) => state.cart);
   const [name, setName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
@@ -16,20 +16,16 @@ function Checkout() {
   const [lane, setLane] = useState("");
   const [city, setCity] = useState("");
 
-  const [newUser, setNewUser] = useState(false);
-
-  const { user } = useAuth0();
-
-  const { token } = useSelector((state) => state.userX);
-
-  const email =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpzaHRtYWRAZ21haWwuY29tIiwiaWF0IjoxNjI5ODA0ODE4fQ.Xc7vLZ6giavNqROPjDhGucyl11O9E2HSSw4nUW6Sruk";
+  // OBJECTS FOR LOCAL USAGE
   let history = useHistory();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    console.log("object", `http://localhost:4000/fury/users/verify/${token}`);
-    axios
+  // USER TOKEN
+  const { token } = useSelector((state) => state.userX);
+
+  // VERIFY REDUX STORED USER TOKEN IS VALID OR NOT
+  const checkUserTokenIsValid = async () => {
+    await axios
       .get(`http://localhost:4000/fury/users/verify/${token}`)
       .then((res) => {
         console.log("check", res.data);
@@ -41,8 +37,14 @@ function Checkout() {
         setLane(res.data && res.data.address ? res.data.address.lane : null);
         setCity(res.data && res.data.address ? res.data.address.city : null);
       });
+  };
+
+  // INITIAL API CALLS
+  useEffect(() => {
+    checkUserTokenIsValid();
   }, []);
 
+  // FUNCTION FOR PLACE ORDER
   const placeOrder = () => {
     axios
       .post(
@@ -54,8 +56,8 @@ function Checkout() {
         },
         {
           headers: {
-            "x-authToken":
-              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpzaHRtYWRAZ21haWwuY29tIiwiaWF0IjoxNjI5ODA0ODE4fQ.Xc7vLZ6giavNqROPjDhGucyl11O9E2HSSw4nUW6Sruk",
+            "x-authToken": `${token}`,
+            // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InpzaHRtYWRAZ21haWwuY29tIiwiaWF0IjoxNjI5ODA0ODE4fQ.Xc7vLZ6giavNqROPjDhGucyl11O9E2HSSw4nUW6Sruk",
           },
         }
       )
@@ -67,10 +69,6 @@ function Checkout() {
           history.push("/");
         }
       });
-  };
-
-  const onSignUp = () => {
-    setNewUser(false);
   };
 
   return (

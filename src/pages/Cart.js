@@ -49,7 +49,8 @@ function Cart() {
       dispatch(setCart(cloneProducts));
     }
   };
-  const onPressPlus = (singleItem) => {
+
+  const onPressPlus = async (singleItem) => {
     // var cloneProducts = [...shoppingCart];
     var cloneProducts = JSON.parse(JSON.stringify(shoppingCart));
     console.log(" cloneProducts", cloneProducts);
@@ -66,11 +67,11 @@ function Cart() {
     dispatch(setCart(cloneProducts));
   };
 
-  const onPlaceOrder = () => {
+  const onPlaceOrder = async () => {
     if (user == undefined) {
       loginWithPopup();
     } else {
-      axios
+      await axios
         .get(`http://localhost:4000/fury/users/${user ? user.name : null}`)
         .then((res) => {
           if (res.data.isUser == false) {

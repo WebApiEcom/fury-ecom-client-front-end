@@ -9,6 +9,7 @@ import Protfolio from "./pages/Protfolio";
 import Contact from "./pages/Contact";
 import CreateUser from "./pages/CreateUser";
 import Checkout from "./pages/Checkout";
+import Footer from "./components/Footer";
 function App() {
   return (
     <div>
@@ -35,14 +36,17 @@ function App() {
             <ItemView />
           </Route>
           <Route path="/cart">
+            <Header />
             <Cart />
           </Route>
           <Route path="/profile/:userId">
+            <Header />
             <Profile />
           </Route>
           <Route path="/">
             <Header />
             <Home />
+            <Footer />
           </Route>
         </Switch>
       </Router>
