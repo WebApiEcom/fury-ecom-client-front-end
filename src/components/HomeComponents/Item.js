@@ -8,7 +8,7 @@ function Item(props) {
 
   return (
     <div class="card bordered h-full shadow-md">
-      <figure className="h-66" style={{ height: "350px" }}>
+      <figure className="h-66" style={{ height: "250px" }}>
         <img src={props.item.imgUrl} className="h-full" />
       </figure>
 

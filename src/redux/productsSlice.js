@@ -6,7 +6,7 @@ export const getProducts = createAsyncThunk(
   "products/getProducts",
   async () => {
     const { data } = await axios.get(
-      `http://localhost:4000/fury/admin/products/`
+      `http://localhost:4000/fury/client/products/`
     );
     return data;
   }
@@ -17,7 +17,7 @@ export const getProduct = createAsyncThunk(
   "products/getProduct",
   async (productId) => {
     const { data } = await axios.get(
-      `http://localhost:4000/fury/admin/products/${productId}`
+      `http://localhost:4000/fury/client/products/${productId}`
     );
     return data;
   }
