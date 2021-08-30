@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Item from "./Item";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/productsSlice";
