@@ -40,7 +40,7 @@ function App() {
             <Header />
             <Cart />
           </Route>
-          <Route path="/profile/:userId">
+          <Route path="/profile/:emailEncrypt">
             <Header />
             <Profile />
           </Route>

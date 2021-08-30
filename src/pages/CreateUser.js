@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserToken } from "../redux/userSlice";
+import { setUserToken, setToCheckOut } from "../redux/userSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -16,6 +16,7 @@ function CreateUser() {
   const dispatch = useDispatch();
   const { user } = useAuth0();
   let history = useHistory();
+  const { toCheckout } = useSelector((state) => state.userX);
 
   // Getting Name
   const onNameChange = (event) => {
@@ -40,8 +41,7 @@ function CreateUser() {
   };
 
   const signUp = () => {
-    axios
-      .post("http://localhost:4000/fury/users", {
+    axios.post("http://localhost:4000/fury/users", {
         name: name,
         email: user ? user.email : null,
         phone_number: phoneNumber,
@@ -56,14 +56,22 @@ function CreateUser() {
         (response) => {
           dispatch(setUserToken(response.data.token));
           setResponseMessage("");
-          history.push("/checkout");
+          if (toCheckout)
+          {
+            
+            history.push("/checkout");
+          }
+          else {
+            dispatch(setToCheckOut(true));
+            history.push("/");
+          }
+          
         },
         (error) => {
           setResponseMessage(error.response.data);
         }
       );
   };
-
   return (
     <div className="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
       <div className="max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1">
