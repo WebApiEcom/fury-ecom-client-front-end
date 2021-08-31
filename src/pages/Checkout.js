@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCart, setCartTotal, setOrderStatus } from "../redux/cartSlice";
-import CheckoutItem from "../components/CheckoutComponents/CheckoutItem";
-import SignUp from "./CreateUser";
-import { setCard } from "../redux/userSlice";
-
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import Payment from "./Payment";
+import { useDispatch, useSelector } from "react-redux";
+import CheckoutItem from "../components/CheckoutComponents/CheckoutItem";
+import { setToCheckOut } from "../redux/userSlice";
+import { setCart, setCartTotal, setOrderStatus } from "../redux/cartSlice";
+
+
 
 function Checkout() {
   // LOCAL STATES
@@ -51,7 +50,7 @@ function Checkout() {
   const placeOrder = () => {
     axios
       .post(
-        "http://localhost:4000/orders/",
+        "http://localhost:4000/fury/orders/",
         {
           total: orderTotal,
           items: shoppingCart,
@@ -74,7 +73,8 @@ function Checkout() {
   };
 
   const toPayment = () => {
-    history.push("/payment")
+    dispatch(setToCheckOut(true));
+    history.push("/payment");
   }
 
   return (

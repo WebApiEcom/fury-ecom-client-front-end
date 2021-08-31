@@ -6,8 +6,8 @@ const userSlice = createSlice({
     user: {},
     userid: 0,
     token: "",
-    toCheckout: true,
-    card:{}
+    toCheckout: false,
+    card: {}
   },
   reducers: {
     setUser: (state, action) => {

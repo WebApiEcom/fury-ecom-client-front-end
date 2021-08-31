@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { setUserToken, setToCheckOut } from "../redux/userSlice";
 
-
 function Header() {
   const { shoppingCart } = useSelector((state) => state.cart);
   const { isAuthenticated, loginWithPopup, logout, user } = useAuth0();
   const dispatch = useDispatch();
   const history = useHistory();
+
 
   const profile = async() => {
     await axios
@@ -24,7 +24,9 @@ function Header() {
             history.push(`/profile/${res.data.token}`);
           }
         })
-        .catch((error) => {});
+      .catch((error) => {
+          
+      });
   }
 
   return (
