@@ -33,7 +33,6 @@ function Contact() {
          })
          .then(
             (response) => {
-               console.log(response);
                setResponseMessage(response.data.message);
                setName("");
                setMessage("");
