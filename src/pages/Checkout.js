@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCart, setCartTotal, setOrderStatus } from "../redux/cartSlice";
 import CheckoutItem from "../components/CheckoutComponents/CheckoutItem";
 import SignUp from "./CreateUser";
+import { setCard } from "../redux/userSlice";
 
 import axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -16,13 +17,14 @@ function Checkout() {
   const [addressNo, setAddressNo] = useState("");
   const [lane, setLane] = useState("");
   const [city, setCity] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   // OBJECTS FOR LOCAL USAGE
   let history = useHistory();
   const dispatch = useDispatch();
 
   // USER TOKEN
-  const { token } = useSelector((state) => state.userX);
+  const { token, card } = useSelector((state) => state.userX);
 
   // VERIFY REDUX STORED USER TOKEN IS VALID OR NOT
   const checkUserTokenIsValid = async () => {
@@ -53,7 +55,7 @@ function Checkout() {
         {
           total: orderTotal,
           items: shoppingCart,
-          payment_type: "Debit Card",
+          payment_type: card.type,
         },
         {
           headers: {
@@ -62,14 +64,18 @@ function Checkout() {
         }
       )
       .then((res) => {
-        if (res.status === 200) {
-          dispatch(setOrderStatus(true));
-          dispatch(setCart([]));
-          dispatch(setCartTotal(0));
-          history.push("/");
-        }
+        dispatch(setOrderStatus(true));
+        dispatch(setCart([]));
+        dispatch(setCartTotal(0));
+        history.push("/");
+      }, (error) => {
+        setErrorMessage(error.response.data);
       });
   };
+
+  const toPayment = () => {
+    history.push("/payment")
+  }
 
   return (
     <div>
@@ -110,13 +116,29 @@ function Checkout() {
                   <div className="w-full text-lg text-black font-bold pt-0 px-0 pb-3">
                     Payment Methods
                   </div>
-                  <div className="flex justify-between px-0 pt-3 pb-cus">
-                    <div className="flex flex-grow flex-shrink">
-                      <span className="font-sans text-sm tracking-normal h-6 text-cus leading-6 cursor-pointer">
-                        + Select payment method
-                      </span>
-                    </div>
-                  </div>
+
+                  {
+                    card.id ? (
+                      <div className="flex justify-between px-0 pt-3 pb-cus">
+                        <div className="flex flex-grow flex-shrink">
+                          <span className="bg-visa h-6 min-w-375 flex-grow-0 flex-shrink inline-block bg-no-repeat bg-50-center bg-contain">
+                          </span>
+                          <span className="ml-2.5 text-black">●●●● ●●●● ●●●●{card.card.last4}</span>
+                        </div>
+                        <span className="text-cus cursor-pointer">
+                          <button className="rounded-none p-0 h-5 border-0 text-cus mb-0 text-xs" onClick={() => toPayment()}>
+                            Change
+                          </button>
+                        </span>
+                      </div>) : (
+                      <div className="flex justify-between px-0 pt-3 pb-cus">
+                        <div className="flex flex-grow flex-shrink">
+                          <span className="font-sans text-sm tracking-normal h-6 text-cus leading-6 cursor-pointer" onClick={() => toPayment()}>
+                            + Select payment method
+                          </span>
+                        </div>
+                      </div>)
+                  }
                 </div>
               </div>
               <div className="mb-2.5 py-5 px-7 bg-white rounded-t-lg rounded-b-lg">
@@ -152,21 +174,31 @@ function Checkout() {
                     <div className="pt-2.5 ">
                       <button
                         onClick={() => placeOrder()}
-                        className="mb-1.5 border-solid bg-purple-700 border-transparent rounded px-12 py-0 h-11 leading-cus text-base border text-white w-full font-medium"
+                        className="mb-1.5 border-solid bg-purple-500 hover:bg-purple-700 border-transparent rounded px-12 py-0 h-11 leading-cus text-base border text-white w-full font-medium"
                       >
                         Place Order
                       </button>
                     </div>
+                    {!errorMessage ? null : (<div class="alert alert-error">
+                      <div class="flex-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
+                        </svg>
+                        <label>{errorMessage}</label>
+                      </div>
+                    </div>)
+                    }
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
 
       {/* <Payment /> */}
-    </div>
+    </div >
   );
 }
 

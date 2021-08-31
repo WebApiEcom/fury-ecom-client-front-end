@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
+import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import "./styles.css";
+import { useDispatch, useSelector } from "react-redux";
+import { setCard } from "../../redux/userSlice";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const CARD_OPTIONS = {
    iconStyle: "solid",
@@ -97,6 +100,13 @@ const ResetButton = ({ onClick }) => (
    </button>
 );
 
+const BackToCheckout = ({ onClick }) => (
+   
+   <button type="button" className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded" onClick={onClick}>
+      continue
+   </button>
+);
+
 export default function CheckoutForm() {
    const stripe = useStripe();
    const elements = useElements();
@@ -109,6 +119,19 @@ export default function CheckoutForm() {
       phone: "",
       name: "",
    });
+   const dispatch = useDispatch();
+   const history = useHistory();
+
+   useEffect(() => {
+      setError(null);
+      setProcessing(false);
+      setPaymentMethod(null);
+      setBillingDetails({
+         email: "",
+         phone: "",
+         name: "",
+      })
+    }, []);
 
    const handleSubmit = async (event) => {
       event.preventDefault();
@@ -152,15 +175,22 @@ export default function CheckoutForm() {
          phone: "",
          name: "",
       });
+      dispatch(setCard({}));
+   };
+   const toCheckout = () => {
+      history.push("/checkout");
+      console.log(paymentMethod.id);
+      axios.get(`http://localhost:4000/fury/users/sources/${paymentMethod.id}`).then((res) => {
+         dispatch(setCard(res.data));
+      });
    };
 
    return paymentMethod ? (
       <div className="Result">
          <div className="ResultTitle" role="alert">
-            Payment successful
+            Card Added Successfully
          </div>
-         <div className="ResultMessage">Thanks for trying Stripe Elements.</div>
-         <ResetButton onClick={reset} />
+         <BackToCheckout onClick={toCheckout} />
       </div>
    ) : (
       <form className="Form" onSubmit={handleSubmit}>
@@ -221,7 +251,7 @@ export default function CheckoutForm() {
          </fieldset>
          {error && <ErrorMessage>{error.message}</ErrorMessage>}
          <SubmitButton processing={processing} error={error} disabled={!stripe}>
-            Pay For Your CAKE
+            Confirm
          </SubmitButton>
       </form>
    );
