@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import "./styles.css";
-import { useDispatch, useSelector} from "react-redux";
-import { setCard} from "../../redux/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setCard } from "../../redux/userSlice";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
@@ -90,7 +90,7 @@ const ErrorMessage = ({ children }) => (
 );
 
 const ResetButton = ({ onClick }) => (
-   
+
    <button type="button" className="ResetButton" onClick={onClick}>
       <svg width="32px" height="32px" viewBox="0 0 32 32" className="">
          <path
@@ -102,7 +102,7 @@ const ResetButton = ({ onClick }) => (
 );
 
 const Continue = ({ onClick }) => (
-   
+
    <button type="button" className="bg-green-400 hover:bg-green-500 text-white font-bold py-2 px-4 rounded-full mb-2" onClick={onClick}>
       continue
    </button>
@@ -176,8 +176,7 @@ export default function CheckoutForm() {
       axios.get(`http://localhost:4000/fury/users/sources/${paymentMethod.id}`).then((res) => {
          dispatch(setCard(res.data));
       });
-      if (toCheckout)
-      {
+      if (toCheckout) {
          history.push("/checkout");
       }
       else {
@@ -192,7 +191,7 @@ export default function CheckoutForm() {
          </div>
          <Continue onClick={goForward} />
          <div>
-         <ResetButton onClick={reset} />
+            <ResetButton onClick={reset} />
          </div>
       </div>
    ) : (

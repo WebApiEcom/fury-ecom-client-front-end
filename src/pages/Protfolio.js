@@ -12,7 +12,6 @@ function Protfolio() {
          )
          .then(
             (response) => {
-               console.log(response.data.data);
                setInsta(response.data.data);
             },
             (error) => {
@@ -21,8 +20,6 @@ function Protfolio() {
          );
    };
    useEffect(() => {
-      const checkenv = process.env.REACT_APP_INSTA_API;
-      console.log(checkenv);
       onGetInsta();
    }, []);
 

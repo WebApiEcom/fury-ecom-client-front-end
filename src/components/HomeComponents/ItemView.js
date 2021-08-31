@@ -18,7 +18,6 @@ function ItemView() {
 
   useEffect(() => {
     dispatch(getProduct(itemId));
-    console.log(product);
   }, []);
 
   const addToCart = () => {
@@ -29,7 +28,7 @@ function ItemView() {
       qty: qty,
       price: parseInt(
         product.prices.price -
-          product.prices.price * (product.prices.discount / 100)
+        product.prices.price * (product.prices.discount / 100)
       ),
       amount: product.discountedPrice,
       img_url: product.imgUrl,
@@ -58,7 +57,7 @@ function ItemView() {
     const amount =
       (product && product.prices ? product.prices.price : null) -
       ((product && product.prices ? product.prices.discount : null) / 100) *
-        (product && product.prices ? product.prices.price : null);
+      (product && product.prices ? product.prices.price : null);
     const sum = amount + product.discountedPrice;
     dispatch(addPrice(sum));
   };
@@ -71,7 +70,7 @@ function ItemView() {
       const amount =
         (product && product.prices ? product.prices.price : null) -
         ((product && product.prices ? product.prices.discount : null) / 100) *
-          (product && product.prices ? product.prices.price : null);
+        (product && product.prices ? product.prices.price : null);
       const sub = product.discountedPrice - amount;
       dispatch(substractPrice(sub));
     }
@@ -79,9 +78,8 @@ function ItemView() {
 
   return (
     <div
-      class={`container mx-auto  ${
-        productIsLoading ? "animate-pulse bg-white-400" : ""
-      }`}
+      class={`container mx-auto  ${productIsLoading ? "animate-pulse bg-white-400" : ""
+        }`}
     >
       <div class="card lg:card-side bordered mt-8">
         <figure

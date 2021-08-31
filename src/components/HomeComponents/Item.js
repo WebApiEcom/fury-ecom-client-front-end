@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 function Item(props) {
-  console.log("props", props.item.prices.price);
   let discountPrice = props.item.prices.discount / 100;
   discountPrice = discountPrice * props.item.prices.price;
 
