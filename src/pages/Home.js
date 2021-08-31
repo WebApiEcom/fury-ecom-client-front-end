@@ -3,6 +3,7 @@ import Items from "../components/HomeComponents/Items";
 import { useDispatch, useSelector } from "react-redux";
 import { setOrderStatus } from "../redux/cartSlice";
 import ImageCarousel from "../components/HomeComponents/ImageCarousel";
+import { setToCheckOut } from "../redux/userSlice";
 
 function Home() {
   const { orderStatus } = useSelector((state) => state.cart);
@@ -11,6 +12,7 @@ function Home() {
     setTimeout(() => {
       dispatch(setOrderStatus(false));
     }, 5000);
+    dispatch(setToCheckOut(false));
   }, []);
 
   return (
