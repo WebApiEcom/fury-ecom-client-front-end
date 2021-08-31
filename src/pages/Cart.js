@@ -37,7 +37,6 @@ function Cart() {
     var cloneProducts = JSON.parse(JSON.stringify(shoppingCart));
 
     var item = cloneProducts.find((item) => item.item_id == singleItem.item_id);
-    console.log(" onPressPlus ~ item", item.qty);
     if (item.qty == 1) {
     } else {
       item.qty = item.qty - 1;
@@ -53,10 +52,8 @@ function Cart() {
   const onPressPlus = async (singleItem) => {
     // var cloneProducts = [...shoppingCart];
     var cloneProducts = JSON.parse(JSON.stringify(shoppingCart));
-    console.log(" cloneProducts", cloneProducts);
 
     var item = cloneProducts.find((item) => item.item_id == singleItem.item_id);
-    console.log(" onPressPlus ~ item", item.qty);
 
     item.qty = item.qty + 1;
     item.amount = parseFloat(item.amount) + parseFloat(item.price);
@@ -81,7 +78,7 @@ function Cart() {
             history.push("/checkout");
           }
         })
-        .catch((error) => {});
+        .catch((error) => { });
     }
   };
 

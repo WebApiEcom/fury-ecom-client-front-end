@@ -30,7 +30,6 @@ function Checkout() {
     await axios
       .get(`http://localhost:4000/fury/users/verify/${token}`)
       .then((res) => {
-        console.log("check", res.data);
         setName(res.data ? res.data.name : null);
         setPhoneNo(res.data ? res.data.phone_number : null);
         setAddressNo(

@@ -42,30 +42,29 @@ function CreateUser() {
 
   const signUp = () => {
     axios.post("http://localhost:4000/fury/users", {
-        name: name,
-        email: user ? user.email : null,
-        phone_number: phoneNumber,
-        address: {
-          address_No: addressNo,
-          lane: laneName,
-          city: city,
-        },
-        userType: "user",
-      })
+      name: name,
+      email: user ? user.email : null,
+      phone_number: phoneNumber,
+      address: {
+        address_No: addressNo,
+        lane: laneName,
+        city: city,
+      },
+      userType: "user",
+    })
       .then(
         (response) => {
           dispatch(setUserToken(response.data.token));
           setResponseMessage("");
-          if (toCheckout)
-          {
-            
+          if (toCheckout) {
+
             history.push("/checkout");
           }
           else {
             dispatch(setToCheckOut(true));
             history.push("/");
           }
-          
+
         },
         (error) => {
           setResponseMessage(error.response.data);
