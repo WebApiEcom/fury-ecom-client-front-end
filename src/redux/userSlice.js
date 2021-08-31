@@ -6,7 +6,8 @@ const userSlice = createSlice({
     user: {},
     userid: 0,
     token: "",
-    toCheckout: true
+    toCheckout: true,
+    card:{}
   },
   reducers: {
     setUser: (state, action) => {
@@ -21,11 +22,14 @@ const userSlice = createSlice({
     setToCheckOut: (state, action) => {
       state.toCheckout = action.payload;
     },
+    setCard: (state, action) => {
+      state.card = action.payload;
+    },
 
 
   },
 });
 
-export const { setUserToken, setUser, getUserId, setToCheckOut } = userSlice.actions;
+export const { setUserToken, setUser, getUserId, setToCheckOut, setBillingDetails, setCard } = userSlice.actions;
 
 export default userSlice.reducer;
