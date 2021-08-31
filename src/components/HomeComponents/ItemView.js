@@ -18,7 +18,6 @@ function ItemView() {
 
   useEffect(() => {
     dispatch(getProduct(itemId));
-    console.log(product);
   }, []);
 
   const addToCart = () => {
@@ -54,13 +53,15 @@ function ItemView() {
 
   // INCREASE QUANTITY
   const onPlus = () => {
-    setQty(qty + 1);
-    const amount =
-      (product && product.prices ? product.prices.price : null) -
-      ((product && product.prices ? product.prices.discount : null) / 100) *
-        (product && product.prices ? product.prices.price : null);
-    const sum = amount + product.discountedPrice;
-    dispatch(addPrice(sum));
+    if (qty < product.qty) {
+      setQty(qty + 1);
+      const amount =
+        (product && product.prices ? product.prices.price : null) -
+        ((product && product.prices ? product.prices.discount : null) / 100) *
+          (product && product.prices ? product.prices.price : null);
+      const sum = amount + product.discountedPrice;
+      dispatch(addPrice(sum));
+    }
   };
 
   // DECREASE QUANTITY
