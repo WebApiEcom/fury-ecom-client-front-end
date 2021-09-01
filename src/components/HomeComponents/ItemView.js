@@ -109,13 +109,13 @@ function ItemView() {
 
   // INCREASE QUANTITY
   const onPlus = () => {
-      setQty(qty + 1);
-      const amount =
-        (product && product.prices ? product.prices.price : null) -
-        ((product && product.prices ? product.prices.discount : null) / 100) *
-        (product && product.prices ? product.prices.price : null);
-      const sum = amount + product.discountedPrice;
-      dispatch(addPrice(sum));
+    setQty(qty + 1);
+    const amount =
+      (product && product.prices ? product.prices.price : null) -
+      ((product && product.prices ? product.prices.discount : null) / 100) *
+      (product && product.prices ? product.prices.price : null);
+    const sum = amount + product.discountedPrice;
+    dispatch(addPrice(sum));
   };
 
   // DECREASE QUANTITY
@@ -134,38 +134,38 @@ function ItemView() {
 
   return (
     <div
-      class={`container mx-auto  ${productIsLoading ? "animate-pulse bg-white-400" : ""
+      className={`container mx-auto  ${productIsLoading ? "animate-pulse bg-white-400" : ""
         }`}
     >
-      <div class="card lg:card-side bordered mt-8">
+      <div className="card lg:card-side bordered mt-8">
         <figure
-          class="w-60 bg-red-300"
+          className="w-60 bg-red-300"
           style={{ height: "500px", maxWidth: "800px" }}
         >
           <img className="h-full" src={product.imgUrl} />
         </figure>
 
-        <div class="card-body  flex flex-col justify-center pl-5">
-          <div class="pl-10">
-            <h2 class="card-title">
+        <div className="card-body  flex flex-col justify-center pl-5">
+          <div className="pl-10">
+            <h2 className="card-title">
               {product.name}
               {product.isActive ? (
-                <div class="badge mx-2 badge-secondary">NEW</div>
+                <div className="badge mx-2 badge-secondary">NEW</div>
               ) : null}
             </h2>
             <h3 className="font-semibold">{product.category}</h3>
-            <p class="mt-4">{product.description}</p>
+            <p className="mt-4">{product.description}</p>
 
-            <div class="flex flex-row mt-3">
-              <h2 class="card-title">LKR </h2>
-              <h2 class="card-title ml-2">{product.discountedPrice}</h2>
+            <div className="flex flex-row mt-3">
+              <h2 className="card-title">LKR </h2>
+              <h2 className="card-title ml-2">{product.discountedPrice}</h2>
             </div>
 
-            <div class="btn-group mt-3">
-              <button class="btn btn-outline btn-primary" onClick={onPlus}>
+            <div className="btn-group mt-3">
+              <button className="btn btn-outline btn-primary" onClick={onPlus}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -178,11 +178,11 @@ function ItemView() {
                   />
                 </svg>
               </button>
-              <div class="btn btn-outline btn-primary">{qty}</div>
-              <button class="btn btn-outline btn-primary" onClick={onSubstract}>
+              <div className="btn btn-outline btn-primary">{qty}</div>
+              <button className="btn btn-outline btn-primary" onClick={onSubstract}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  class="h-6 w-6"
+                  className="h-6 w-6"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -197,15 +197,15 @@ function ItemView() {
               </button>
             </div>
 
-            <div class="mt-7">
-              <button class="btn btn-wide " onClick={addToCart}>
+            <div className="mt-7">
+              <button className="btn btn-wide " onClick={addToCart}>
                 ADD TO CART
               </button>
               {!isExceed ? null : (
 
-                <div class="alert alert-error mt-2">
-                  <div class="flex-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                <div className="alert alert-error mt-2">
+                  <div className="flex-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-6 h-6 mx-2 stroke-current">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
                     </svg>
                     <label>Only {product.qty} available!</label>

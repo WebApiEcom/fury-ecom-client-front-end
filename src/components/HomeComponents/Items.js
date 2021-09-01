@@ -16,14 +16,13 @@ function Items() {
 
   return (
     <div
-      class={` min-h-full flex-items-center jerstify-center  ${
-        productsIsLoading ? "animate-pulse bg-white-400" : ""
-      }`}
+      className={` min-h-full flex-items-center jerstify-center  ${productsIsLoading ? "animate-pulse bg-white-400" : ""
+        }`}
     >
-      <div class="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-10">
+      <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-10">
         {products.map((item) => (
-          <div class="bg-transparent p-3 rounded" key={item.id}>
-            <Item key={item.id} item={item} />
+          <div className="bg-transparent p-3 rounded" key={item._id}>
+            <Item key={item._id} item={item} />
           </div>
         ))}
       </div>

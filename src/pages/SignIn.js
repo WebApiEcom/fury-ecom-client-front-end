@@ -47,7 +47,7 @@ function SignIn() {
             <div>
                {loader ? (
                   <svg
-                     class="mx-auto animate-spin bg-purple-400 h-10 w-10"
+                     className="mx-auto animate-spin bg-purple-400 h-10 w-10"
                      viewBox="0 0 24 24"
                   ></svg>
                ) : (

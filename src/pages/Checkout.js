@@ -84,7 +84,7 @@ function Checkout() {
             <div className="flex-grow-0 flex-shrink-0 w-8/12 mb-7 mx-2 px-2">
               <div className="mb-2.5 py-5 px-7 bg-white rounded-t-lg rounded-b-lg">
                 <div className="relative">
-                  <p class="text-lg text-black font-bold mb-6 mt-2">
+                  <p className="text-lg text-black font-bold mb-6 mt-2">
                     Shipping Information
                   </p>
                   <div className="relative ">
@@ -141,8 +141,8 @@ function Checkout() {
                 </div>
               </div>
               <div className="mb-2.5 py-5 px-7 bg-white rounded-t-lg rounded-b-lg">
-                <div class="relative">
-                  <p class="text-lg text-black font-bold mb-6 mt-2">
+                <div className="relative">
+                  <p className="text-lg text-black font-bold mb-6 mt-2">
                     Order Review
                   </p>
                   {shoppingCart.map((item) => (
@@ -157,7 +157,7 @@ function Checkout() {
               <div className="relative left-0 right-0">
                 <div className="mb-2.5 px-7 py-5 bg-white rounded-t-lg rounded-b-xl">
                   <div className="relative inline-block w-full">
-                    <div class="relative">
+                    <div className="relative">
                       <p className="mb-6 text-h2t font-bold">Order Summary</p>
                       <div className="border border-solid border-gray-100 my-5 pt-4 text-black">
                         <dl className="flex flex-wrap items-center text-sm m-0">
@@ -178,9 +178,9 @@ function Checkout() {
                         Place Order
                       </button>
                     </div>
-                    {!errorMessage ? null : (<div class="alert alert-error">
-                      <div class="flex-1">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-6 h-6 mx-2 stroke-current">
+                    {!errorMessage ? null : (<div className="alert alert-error">
+                      <div className="flex-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="w-6 h-6 mx-2 stroke-current">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path>
                         </svg>
                         <label>{errorMessage}</label>

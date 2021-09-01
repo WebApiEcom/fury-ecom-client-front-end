@@ -6,22 +6,22 @@ function Item(props) {
   discountPrice = discountPrice * props.item.prices.price;
 
   return (
-    <div class="card bordered h-full shadow-md">
+    <div className="card bordered h-full shadow-md">
       <figure className="h-66" style={{ height: "250px" }}>
         <img src={props.item.imgUrl} className="h-full" />
       </figure>
 
       {/* card-body */}
-      <div class="mt-5 pl-5">
-        <h2 class="card-title">
+      <div className="mt-5 pl-5">
+        <h2 className="card-title">
           {props.item.name}
 
           {props.item.isActive ? (
-            <div class="badge mx-2 badge-error">NEW</div>
+            <div className="badge mx-2 badge-error">NEW</div>
           ) : null}
         </h2>
 
-        <p class="font-semibold">{props.item.weight}</p>
+        <p className="font-semibold">{props.item.weight}</p>
 
         <div style={{ height: "65px" }}>
           <div className="mt-3">
@@ -48,19 +48,19 @@ function Item(props) {
         </div>
 
         {/* card-actions  */}
-        <div class="flex justify-end  mb-5 pr-5">
-          <div class="flex">
+        <div className="flex justify-end  mb-5 pr-5">
+          <div className="flex">
             {props.item.qty == 0 ? (
-              <button class="btn btn-secondary" disabled="disabled">
+              <button className="btn btn-secondary" disabled="disabled">
                 Not Available
               </button>
             ) : (
               <Link to={`/item-view/${props.item._id}`}>
-                <button class="btn btn-warning">
+                <button className="btn btn-warning">
                   <span className="mr-1">View</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
