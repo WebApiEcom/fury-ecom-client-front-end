@@ -34,6 +34,8 @@ const productsSlice = createSlice({
     // STATES FOR GET SPECIFIC PRODUCT
     product: {},
     productIsLoading: true,
+
+    productsStatus:[]
   },
 
   reducers: {
@@ -42,6 +44,9 @@ const productsSlice = createSlice({
     },
     substractPrice: (state, action) => {
       state.product.discountedPrice = action.payload;
+    },
+    setProductsStatus: (state, action) => {
+      state.productsStatus= action.payload;
     },
   },
 
@@ -79,4 +84,4 @@ const productsSlice = createSlice({
 });
 
 export default productsSlice.reducer;
-export const { addPrice, substractPrice } = productsSlice.actions;
+export const { addPrice, substractPrice, setProductsStatus} = productsSlice.actions;
