@@ -12,6 +12,7 @@ function Cart() {
   const dispatch = useDispatch();
   const [cratItem, setCartIyem] = useState([]);
   const history = useHistory();
+  const { products } = useSelector((state) => state.products);
 
   const { loginWithPopup, user } = useAuth0();
 
@@ -34,6 +35,7 @@ function Cart() {
   };
   const onPressMin = (singleItem) => {
     // var cloneProducts = [...shoppingCart];
+
     var cloneProducts = JSON.parse(JSON.stringify(shoppingCart));
 
     var item = cloneProducts.find((item) => item.item_id == singleItem.item_id);
@@ -51,17 +53,22 @@ function Cart() {
 
   const onPressPlus = async (singleItem) => {
     // var cloneProducts = [...shoppingCart];
+
+    var oldItem = products.find((item) => item._id == singleItem.item_id);
+
     var cloneProducts = JSON.parse(JSON.stringify(shoppingCart));
 
     var item = cloneProducts.find((item) => item.item_id == singleItem.item_id);
 
-    item.qty = item.qty + 1;
-    item.amount = parseFloat(item.amount) + parseFloat(item.price);
+    if (oldItem.qty > item.qty) {
+      item.qty = item.qty + 1;
+      item.amount = parseFloat(item.amount) + parseFloat(item.price);
 
-    var cloneTotal = parseFloat(orderTotal);
-    cloneTotal = cloneTotal + parseFloat(item.price);
-    dispatch(setCartTotal(cloneTotal));
-    dispatch(setCart(cloneProducts));
+      var cloneTotal = parseFloat(orderTotal);
+      cloneTotal = cloneTotal + parseFloat(item.price);
+      dispatch(setCartTotal(cloneTotal));
+      dispatch(setCart(cloneProducts));
+    }
   };
 
   const onPlaceOrder = async () => {
