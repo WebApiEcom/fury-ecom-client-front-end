@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../components/PaymentComponents/CheckoutForm";
@@ -13,4 +13,4 @@ function Payment() {
       </div>
    );
 }
-export default Payment;
+export default Payment

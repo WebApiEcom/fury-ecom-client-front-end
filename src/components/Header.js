@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import axios from "axios";
 import { setUserToken, setToCheckOut } from "../redux/userSlice";
@@ -12,20 +12,20 @@ function Header() {
   const history = useHistory();
 
 
-  const profile = async() => {
+  const profile = async () => {
     await axios
-        .get(`http://localhost:4000/fury/users/${user ? user.email : null}`)
-        .then((res) => {
-          if (res.data.isUser === false) {
-            dispatch(setToCheckOut(false));
-            history.push("/fetch-user-info");
-          } else {
-            dispatch(setUserToken(res.data.token));
-            history.push(`/profile/${res.data.token}`);
-          }
-        })
+      .get(`http://localhost:4000/fury/users/${user ? user.email : null}`)
+      .then((res) => {
+        if (res.data.isUser === false) {
+          dispatch(setToCheckOut(false));
+          history.push("/fetch-user-info");
+        } else {
+          dispatch(setUserToken(res.data.token));
+          history.push(`/profile/${res.data.token}`);
+        }
+      })
       .catch((error) => {
-          
+
       });
   }
 
@@ -57,18 +57,18 @@ function Header() {
             <div class="avatar online mr-10 -mt-1">
               <div class="rounded-full w-10 h-10">
                 <button
-                onClick={()=>profile()}
+                  onClick={() => profile()}
                 ><img src={user.picture} alt="" /></button>
               </div>
             </div>
 
-            <p className="pr-12 mt-1 cursor-default" onClick={() => logout()}>
+            <p className="pr-12 mt-1 cursor-pointer" onClick={() => logout()}>
               Sign Out
             </p>
           </div>
         ) : (
           <p
-            className="pr-12 mt-1 cursor-default"
+            className="pr-12 mt-1 cursor-pointer"
             onClick={() => {
               loginWithPopup();
             }}
