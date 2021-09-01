@@ -7,6 +7,7 @@ import { useHistory } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   getProducts,
+  setProductsStatus
 } from "../redux/productsSlice";
 import axios from "axios";
 
@@ -15,7 +16,7 @@ function Cart() {
   const dispatch = useDispatch();
   const [cratItem, setCartIyem] = useState([]);
   const history = useHistory();
-  const { products } = useSelector((state) => state.products);
+  const { products, productsStatus } = useSelector((state) => state.products);
 
   const { loginWithPopup, user } = useAuth0();
 
@@ -26,13 +27,22 @@ function Cart() {
 
   // ReMOVE ITEM FUNCTION
   const onPressRemove = (singleItem) => {
+
+    var cloneProductsStatus = JSON.parse(JSON.stringify(productsStatus));
+
+
+
     var cloneProducts = [...shoppingCart];
     shoppingCart.filter((item, index) => {
       if (item.item_id == singleItem.item_id) {
         //set size array and initial size
         if (index !== -1) {
+          var removeItem = cloneProductsStatus.find((item) => item.item_id == singleItem.item_id);
+          removeItem.isExceed = false;
+          dispatch(setProductsStatus(cloneProductsStatus));
           cloneProducts.splice(index, 1);
           dispatch(setCart(cloneProducts));
+
         }
       }
     });
