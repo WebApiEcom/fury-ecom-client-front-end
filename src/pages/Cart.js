@@ -12,26 +12,24 @@ import {
 import axios from "axios";
 
 function Cart() {
+
+
   const { shoppingCart, orderTotal } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [cratItem, setCartIyem] = useState([]);
   const history = useHistory();
   const { products, productsStatus } = useSelector((state) => state.products);
-
   const { loginWithPopup, user } = useAuth0();
+
 
   useEffect(() => {
     dispatch(getProducts());
   }, []);
 
 
-  // ReMOVE ITEM FUNCTION
+  // REMOVE ITEM FUNCTION
   const onPressRemove = (singleItem) => {
-
     var cloneProductsStatus = JSON.parse(JSON.stringify(productsStatus));
-
-
-
     var cloneProducts = [...shoppingCart];
     shoppingCart.filter((item, index) => {
       if (item.item_id == singleItem.item_id) {
@@ -42,26 +40,23 @@ function Cart() {
           dispatch(setProductsStatus(cloneProductsStatus));
           cloneProducts.splice(index, 1);
           dispatch(setCart(cloneProducts));
-
         }
       }
     });
-
     const cloneTotal = parseFloat(orderTotal);
     const itemPrice = parseFloat(singleItem.price) * parseInt(singleItem.qty);
     dispatch(setCartTotal(cloneTotal - itemPrice));
   };
+
+  // MIN ITEM FUNCTION
   const onPressMin = (singleItem) => {
     // var cloneProducts = [...shoppingCart];
-
     var cloneProducts = JSON.parse(JSON.stringify(shoppingCart));
-
     var item = cloneProducts.find((item) => item.item_id == singleItem.item_id);
     if (item.qty == 1) {
     } else {
       item.qty = item.qty - 1;
       item.amount = parseFloat(item.amount) - parseFloat(item.price);
-
       var cloneTotal = parseFloat(orderTotal);
       cloneTotal = cloneTotal - parseFloat(item.price);
       dispatch(setCartTotal(cloneTotal));
@@ -69,19 +64,14 @@ function Cart() {
     }
   };
 
+  // PLUS ITEM FUNCTION
   const onPressPlus = async (singleItem) => {
-    // var cloneProducts = [...shoppingCart];
-
     var oldItem = products.find((item) => item._id == singleItem.item_id);
-
     var cloneProducts = JSON.parse(JSON.stringify(shoppingCart));
-
     var item = cloneProducts.find((item) => item.item_id == singleItem.item_id);
-
     if (oldItem.qty > item.qty) {
       item.qty = item.qty + 1;
       item.amount = parseFloat(item.amount) + parseFloat(item.price);
-
       var cloneTotal = parseFloat(orderTotal);
       cloneTotal = cloneTotal + parseFloat(item.price);
       dispatch(setCartTotal(cloneTotal));
@@ -89,6 +79,7 @@ function Cart() {
     }
   };
 
+  // PLUS ITEM FUNCTION
   const onPlaceOrder = async () => {
     if (user == undefined) {
       loginWithPopup();
@@ -103,7 +94,7 @@ function Cart() {
             history.push("/checkout");
           }
         })
-        .catch((error) => { });
+        .catch((error) => { console.log(error) });
     }
   };
 
@@ -179,12 +170,12 @@ function Cart() {
             </div>
 
             {shoppingCart.length == 0 ? (
-              <button class="bg-yellow-500 font-semibold py-3 text-sm text-white uppercase w-full disabled:opacity-50">
+              <button className="bg-yellow-500 font-semibold py-3 text-sm text-white uppercase w-full disabled:opacity-50">
                 Please Add Item to Cart
               </button>
             ) : (
               <button
-                class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
+                className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"
                 onClick={onPlaceOrder}
               >
                 Checkout

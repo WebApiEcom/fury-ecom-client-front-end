@@ -81,13 +81,13 @@ function Profile() {
   };
 
   return (
-    <div className="md:grid md:grid-cols-2 md:gap-6">
+    <div className="md:grid md:gap-6 px-96">
       <div className="shadow overflow-hidden sm:rounded-md">
         <div className="px-4 py-5 bg-white sm:p-6">
           <div className="grid grid-cols-6 gap-6 items-center">
-            <div class="avatar placeholder col-span-6">
-              <div class="bg-neutral-focus text-neutral-content rounded-full w-32 h-32">
-                <span class="text-3xl">{name.charAt(0).toUpperCase()}</span>
+            <div className="avatar placeholder col-span-6">
+              <div className="bg-neutral-focus text-neutral-content rounded-full w-32 h-32">
+                <span className="text-3xl">{name.charAt(0).toUpperCase()}</span>
               </div>
             </div>
 
@@ -220,7 +220,7 @@ function Profile() {
         </div>
         <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
           <button
-            class="btn btn-primary btn-active"
+            className="btn btn-primary btn-active"
             onClick={() => updateUser(_id)}
             disabled={disabled}
           >
@@ -229,16 +229,15 @@ function Profile() {
         </div>
         {!visible ? null : (
           <div
-            class={`${
-              colorGreen ? "alert alert-success" : "alert alert-error"
-            }`}
+            className={`${colorGreen ? "alert alert-success" : "alert alert-error"
+              }`}
           >
-            <div class="flex-1">
+            <div className="flex-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
-                class="w-6 h-6 mx-2 stroke-current"
+                className="w-6 h-6 mx-2 stroke-current"
               >
                 <path
                   stroke-linecap="round"

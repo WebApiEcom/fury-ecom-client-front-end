@@ -79,18 +79,18 @@ function CreateUser() {
             <h1 className="text-2xl xl:text-3xl font-extrabold">
               Provide your shipping details here
             </h1>
-            <div class="my-1 border-b text-center">
+            <div className="my-1 border-b text-center">
               {resMsg == "" ? (
-                <div class="leading-none px-2 inline-block text-sm text-red-600 tracking-wide font-medium bg-white transform translate-y-1/2"></div>
+                <div className="leading-none px-2 inline-block text-sm text-red-600 tracking-wide font-medium bg-white transform translate-y-1/2"></div>
               ) : (
-                <div class="leading-none px-2 inline-block text-sm text-red-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                <div className="leading-none px-2 inline-block text-sm text-red-600 tracking-wide font-medium bg-white transform translate-y-1/2">
                   {resMsg}
                 </div>
               )}
             </div>
             <div className="w-full flex-1 mt-8">
               <div className="mx-auto max-w-md">
-                <p class="text-yellow-500  mb-2 font-bold	 text-base">
+                <p className="text-yellow-500  mb-2 font-bold	 text-base">
                   Signed Email as
                 </p>
                 <input
@@ -142,7 +142,7 @@ function CreateUser() {
                   <span className="mr-3">NEXT</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
+                    className="h-6 w-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"

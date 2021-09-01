@@ -30,32 +30,32 @@ function Header() {
   }
 
   return (
-    <div class="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
-      <div class="px-2 mx-2 navbar-start">
+    <div className="navbar mb-2 shadow-lg bg-neutral text-neutral-content">
+      <div className="px-2 mx-2 navbar-start">
         <Link to="/">
-          <span class="text-lg font-bold">FURY 🎂</span>
+          <span className="text-lg font-bold">FURY 🎂</span>
         </Link>
       </div>
 
-      <div class="hidden px-2 mx-2 navbar-center lg:flex">
-        <div class="flex items-stretch">
+      <div className="hidden px-2 mx-2 navbar-center lg:flex">
+        <div className="flex items-stretch">
           <Link to="/">
-            <a class="btn btn-ghost btn-sm rounded-btn">Home</a>
+            <a className="btn btn-ghost btn-sm rounded-btn">Home</a>
           </Link>
           <Link to="/protfolio">
-            <a class="btn btn-ghost btn-sm rounded-btn">Portfolio</a>
+            <a className="btn btn-ghost btn-sm rounded-btn">Portfolio</a>
           </Link>
           <Link to="/contact">
-            <a class="btn btn-ghost btn-sm rounded-btn">Contact</a>
+            <a className="btn btn-ghost btn-sm rounded-btn">Contact</a>
           </Link>
         </div>
       </div>
 
-      <div class="navbar-end mr-10">
+      <div className="navbar-end mr-10">
         {isAuthenticated ? (
           <div className="flex ">
-            <div class="avatar online mr-10 -mt-1">
-              <div class="rounded-full w-10 h-10">
+            <div className="avatar online mr-10 -mt-1">
+              <div className="rounded-full w-10 h-10">
                 <button
                   onClick={() => profile()}
                 ><img src={user.picture} alt="" /></button>
@@ -77,15 +77,15 @@ function Header() {
           </p>
         )}
 
-        <div class="my-6 indicator">
-          <div class="indicator-item badge badge-secondary">
+        <div className="my-6 indicator">
+          <div className="indicator-item badge badge-secondary">
             {shoppingCart.length}
           </div>
           <Link to="/cart">
             <button className="btn btn-square btn-ghost">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-6 w-6"
+                className="h-6 w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
