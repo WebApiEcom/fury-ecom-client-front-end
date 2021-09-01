@@ -5,6 +5,9 @@ import { setUserToken } from "../redux/userSlice";
 import { setCart, setCartTotal } from "../redux/cartSlice";
 import { useHistory } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
+import {
+  getProducts,
+} from "../redux/productsSlice";
 import axios from "axios";
 
 function Cart() {
@@ -15,6 +18,11 @@ function Cart() {
   const { products } = useSelector((state) => state.products);
 
   const { loginWithPopup, user } = useAuth0();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
 
   // ReMOVE ITEM FUNCTION
   const onPressRemove = (singleItem) => {
