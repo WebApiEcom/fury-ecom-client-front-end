@@ -36,7 +36,7 @@ function Cart() {
         //set size array and initial size
         if (index !== -1) {
           var removeItem = cloneProductsStatus.find((item) => item.item_id == singleItem.item_id);
-          removeItem.isExceed = false;
+          cloneProductsStatus.pop(removeItem);
           dispatch(setProductsStatus(cloneProductsStatus));
           cloneProducts.splice(index, 1);
           dispatch(setCart(cloneProducts));
