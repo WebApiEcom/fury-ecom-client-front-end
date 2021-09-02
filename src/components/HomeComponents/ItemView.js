@@ -80,6 +80,10 @@ function ItemView() {
       }
       else {
         cloneshoppingcart.push(newProduct);
+        var eeItem = cloneProductStatus.find(
+          (eeItem) => eeItem.item_id === newProduct.item_id
+        );
+        cloneProductStatus.pop(eeItem);
         cloneProductStatus.push(newProductStatus);
         console.log("loop 3");
       }
