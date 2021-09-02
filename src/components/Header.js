@@ -25,7 +25,7 @@ function Header() {
         }
       })
       .catch((error) => {
-
+        console.log(error);
       });
   }
 
