@@ -68,7 +68,7 @@ function Profile() {
       })
       .then(
         (res) => {
-          setMessage(res.data.message);
+          setMessage(res.data);
           setColorGreen(true);
           setVisible(true);
         },
