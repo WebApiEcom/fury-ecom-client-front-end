@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserToken } from "../redux/userSlice";
 import { Link } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 function SignIn() {
@@ -12,6 +12,7 @@ function SignIn() {
    const [loader, setLoader] = useState(false);
    const dispatch = useDispatch();
 
+   let history = useHistory();
 
    // Getting Email
    const onEmailChange = (event) => {
@@ -31,6 +32,7 @@ function SignIn() {
          .then(
             (response) => {
                dispatch(setUserToken(response.data.token));
+               history.push("/checkout");
                setResponseMessage("");
                setLoader(false);
             },
@@ -71,9 +73,7 @@ function SignIn() {
                      </Link>
                   </p>
                ) : (
-                  <p className="mt-2 text-center text-sm text-red-600">
-                     {resMsg}
-                  </p>
+                  <p className="mt-2 text-center text-sm text-red-600">{resMsg}</p>
                )}
             </div>
             <div className="mt-8 space-y-6">
