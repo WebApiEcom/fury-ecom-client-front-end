@@ -1,32 +1,32 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+//import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import CheckoutItem from "../components/CheckoutComponents/CheckoutItem";
-import { setToCheckOut } from "../redux/userSlice";
-import { setCart, setCartTotal, setOrderStatus } from "../redux/cartSlice";
+//import CheckoutItem from "../components/CheckoutComponents/CheckoutItem";
+//import { setToCheckOut } from "../redux/userSlice";
+//import { setCart, setCartTotal, setOrderStatus } from "../redux/cartSlice";
 
 
 
 function Checkout() {
   // LOCAL STATES
   const { shoppingCart, orderTotal } = useSelector((state) => state.cart);
-  const [name, setName] = useState("");
+  /*const [name, setName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [addressNo, setAddressNo] = useState("");
   const [lane, setLane] = useState("");
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState("");*/
   const [errorMessage, setErrorMessage] = useState("");
 
   // OBJECTS FOR LOCAL USAGE
-  let history = useHistory();
-  const dispatch = useDispatch();
+  /*let history = useHistory();
+  const dispatch = useDispatch();*/
 
   // USER TOKEN
-  const { token, card } = useSelector((state) => state.userX);
+  //const { token, card } = useSelector((state) => state.userX);
 
   // VERIFY REDUX STORED USER TOKEN IS VALID OR NOT
-  const checkUserTokenIsValid = async () => {
+  /*const checkUserTokenIsValid = async () => {
     await axios
       .get(`http://localhost:4000/fury/users/verify/${token}`)
       .then((res) => {
@@ -38,15 +38,15 @@ function Checkout() {
         setLane(res.data && res.data.address ? res.data.address.lane : null);
         setCity(res.data && res.data.address ? res.data.address.city : null);
       });
-  };
+  };*/
 
   // INITIAL API CALLS
-  useEffect(() => {
+  /*useEffect(() => {
     checkUserTokenIsValid();
-  }, []);
+  }, []);*/
 
   // FUNCTION FOR PLACE ORDER
-  const placeOrder = () => {
+  /*const placeOrder = () => {
     axios
       .post(
         "http://localhost:4000/fury/orders/",
@@ -74,14 +74,14 @@ function Checkout() {
   const toPayment = () => {
     dispatch(setToCheckOut(true));
     history.push("/payment");
-  }
+  }*/
 
   return (
     <div>
       <div className="block">
         <div className="w-300 my-0 mx-auto">
           <div className="flex mb-7 -mx-2 mt-4">
-            <div className="flex-grow-0 flex-shrink-0 w-8/12 mb-7 mx-2 px-2">
+            {/*<div className="flex-grow-0 flex-shrink-0 w-8/12 mb-7 mx-2 px-2">
               <div className="mb-2.5 py-5 px-7 bg-white rounded-t-lg rounded-b-lg">
                 <div className="relative">
                   <p className="text-lg text-black font-bold mb-6 mt-2">
@@ -152,7 +152,7 @@ function Checkout() {
                   ))}
                 </div>
               </div>
-            </div>
+            </div>*/}
             <div className="flex-grow-0 flex-shrink-0 w-30 max-w-30 px-2 relative">
               <div className="relative left-0 right-0">
                 <div className="mb-2.5 px-7 py-5 bg-white rounded-t-lg rounded-b-xl">
@@ -172,7 +172,7 @@ function Checkout() {
                     </div>
                     <div className="pt-2.5 ">
                       <button
-                        onClick={() => placeOrder()}
+                        //onClick={() => placeOrder()}
                         className="mb-1.5 border-solid bg-purple-500 hover:bg-purple-700 border-transparent rounded px-12 py-0 h-11 leading-cus text-base border text-white w-full font-medium"
                       >
                         Place Order
@@ -195,8 +195,6 @@ function Checkout() {
           </div>
         </div>
       </div>
-
-      {/* <Payment /> */}
     </div >
   );
 }
